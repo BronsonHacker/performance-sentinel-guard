@@ -1,11 +1,13 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Database, Circle, Settings } from 'lucide-react';
+import AddInstanceModal from '@/components/instances/AddInstanceModal';
 
 const Instances = () => {
+  const [showAddModal, setShowAddModal] = useState(false);
+
   const instances = [
     {
       id: '1',
@@ -69,7 +71,10 @@ const Instances = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-white">Instâncias SQL Server</h1>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => setShowAddModal(true)}
+        >
           <Database className="h-4 w-4 mr-2" />
           Adicionar Instância
         </Button>
@@ -149,12 +154,20 @@ const Instances = () => {
               Configure uma nova instância SQL Server para monitoramento. 
               Você receberá um script coletor personalizado e uma chave de API única.
             </p>
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => setShowAddModal(true)}
+            >
               Começar Configuração
             </Button>
           </div>
         </CardContent>
       </Card>
+
+      <AddInstanceModal 
+        open={showAddModal} 
+        onOpenChange={setShowAddModal} 
+      />
     </div>
   );
 };
